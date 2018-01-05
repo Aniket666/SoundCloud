@@ -58,7 +58,12 @@ sc_data$skip <- as.factor(sc_data$skip)
 sc_data$listener_prev_month_avg_daily_tracks_listened <- as.numeric(sc_data$listener_prev_month_avg_daily_tracks_listened)
 sc_data$listener_prev_month_listening_time <- as.numeric(sc_data$listener_prev_month_listening_time)
 
-
+#data manipulation for training and testing dataset
+sample_size <- floor(0.6 * nrow(sc_data))
+set.seed(123)                     
+train_ind <- sample(seq_len(nrow(sc_data)), size = sample_size)
+train <- sc_data[train_ind,]
+test <- sc_data[-train_ind,]
 
 #Decision Tree
 dtm <- rpart(skip~category_change
